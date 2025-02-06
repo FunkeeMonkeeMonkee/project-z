@@ -1,0 +1,51 @@
+{
+    "name": "Project Z #2",
+    "version": "3.0.2",
+    "description": "",
+    "dependencies": {
+        "device": "*",
+        "pxt-arcade-image-transform": "github:robo-technical-group/pxt-arcade-image-transform#v1.0.5",
+        "animation": "*",
+        "pxt-arcade-info-screens": "github:robo-technical-group/pxt-arcade-info-screens#v1.0.13"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "branch": "v1.12.58",
+        "tag": "v1.12.58",
+        "commits": "https://github.com/microsoft/pxt-arcade/commits/584edd3155f56d4d2465bddaa067b5e48a37c430",
+        "target": "1.12.58",
+        "pxt": "8.5.69",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj",
+    "palette": [
+        "#000000",
+        "#FFFFFF",
+        "#FF2121",
+        "#575757",
+        "#FF8135",
+        "#D2CC14",
+        "#249CA3",
+        "#78DC52",
+        "#003FAD",
+        "#87F2FF",
+        "#8E2EC4",
+        "#A4839F",
+        "#5C406c",
+        "#8F8F8F",
+        "#91463d",
+        "#000000"
+    ]
+}
