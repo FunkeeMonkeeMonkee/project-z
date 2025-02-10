@@ -2579,5 +2579,5 @@ game.onUpdateInterval(100, function () {
     }
 })
 game.onUpdateInterval(20000, function () {
-    list[randint(0, list.length - 1)].setPosition(invis.x, invis.y - 15)
+    list[randint(1, list.length - 1)].setPosition(invis.x, invis.y - 15)
 })
