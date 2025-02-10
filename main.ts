@@ -2422,6 +2422,8 @@ game.onUpdateInterval(100, function () {
             statusbar2.value += 2
         } else if (Equipped == 4) {
             statusbar2.value += 2
+        } else if (Equipped == 5) {
+            statusbar2.value += 50
         }
     }
 })
