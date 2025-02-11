@@ -1269,6 +1269,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.rocket, function (sprite, otherS
     Equipped = 4
 })
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
+    zombie_num += -1
     animation.runImageAnimation(
     status.spriteAttachedTo(),
     [img`
@@ -1276,10 +1277,10 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . c c c c c . . . . . . 
-        . . . . c . . . . . c . . . . . 
-        . . . . c . . . . . c . . . . . 
-        . . . . c . . . . . c . . . . . 
-        . . . . c . . . . . c . . . . . 
+        . . . . c c c c c c c . . . . . 
+        . . . . c c c c c c c . . . . . 
+        . . . . c c c c c c c . . . . . 
+        . . . . c c c c c c c . . . . . 
         . . c c c c c c c c . . . . . . 
         . . . . . . . c . . . . . . . . 
         . . . . c c c c . . . . . . . . 
@@ -1295,9 +1296,9 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . c c c c c . . . . . . 
-        . . . . c . . . . . c . . . . . 
-        . . . . c . . . . . c . . . . . 
-        . . . . c . . . . . c . . . . . 
+        . . . . c c c c c c c . . . . . 
+        . . . . c c c c c c c . . . . . 
+        . . . . c c c c c c c . . . . . 
         . . c c c c c c c c . . . . . . 
         . . . . . . . c . . . . . . . . 
         . . . . c c c c . . . . . . . . 
@@ -1315,8 +1316,8 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . c c c c c . . . . . . 
-        . . . . c . . . . . c . . . . . 
-        . . . . c . . . . . c . . . . . 
+        . . . . c c c c c c c . . . . . 
+        . . . . c c c c c c c . . . . . 
         . . c c c c c c c c . . . . . . 
         . . . . c c c c . . . . . . . . 
         . . . . . . . c . . . . . . . . 
@@ -1334,7 +1335,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . c c c c c . . . . . . 
-        . . . . c . . . . . c . . . . . 
+        . . . . c c c c c c c . . . . . 
         . . c c c c c c c c . . . . . . 
         . . . . c c c c . . . . . . . . 
         . . . . . . c . c . . . . . . . 
@@ -1798,6 +1799,13 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.boss, function (sprite, othe
 statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 0, function (status) {
     loaded = false
 })
+function is_exeeding_max_zombies (num_of_zombies: number, max_num_of_zombies: number) {
+    if (num_of_zombies >= max_num_of_zombies) {
+        return true
+    } else {
+        return false
+    }
+}
 function move_forward () {
     thrustdir = transformSprites.getRotation(aim) - 90
     thrustDirRads = thrustdir * 3.1416 / 180
@@ -2171,21 +2179,21 @@ let ROTATION_CHANGE = 0
 tiles.setCurrentTilemap(tilemap`level2`)
 scene.setBackgroundColor(6)
 playerguy = sprites.create(img`
-    . . . . . . . . . . . . . . . 
-    . . . . . f f f f f . . . . . 
-    . . . . f . . . . . f . . . . 
-    . . . . f . . . . . f . . . . 
-    . . . . f . . . . . f . . . . 
-    . . . . f . . . . . f . . . . 
-    . . . . . f f f f f . . . . . 
-    . . . . . . . f . . . . . . . 
-    . . . . . . f f f . . . . . . 
-    . . . . . . . f . . . . . . . 
-    . . . . . . . f . . . . . . . 
-    . . . . . . f . f . . . . . . 
-    . . . . . . f . f . . . . . . 
-    . . . . . . f . f . . . . . . 
-    . . . . . . . . . . . . . . . 
+    . . . . . e e e . e . . . 
+    . . . . e e e e e e . . . 
+    . . . e e e b e e e . . . 
+    . . . e e f b f b . . . . 
+    . . . . e b b b b . . . . 
+    . . . . b b b b b . . . . 
+    . . . . . c b c . . . . . 
+    . . . . c b c b c . . . . 
+    . . . . c b b c c . . . . 
+    . . . . c b c b c . . . . 
+    . . . . c c b b c . . . . 
+    . . . . e e e e e . . . . 
+    . . . . e e e e e . . . . 
+    . . . . f e f f e . . . . 
+    . . . . f f . f f . . . . 
     `, SpriteKind.Player)
 tiles.placeOnRandomTile(playerguy, assets.tile`myTile3`)
 statusbar2 = statusbars.create(15, 2, StatusBarKind.Energy)
@@ -2252,6 +2260,7 @@ raygunn
 ]
 THRUSTER_VELOCITY = 30
 bulled_speed = 150
+let zombie_num = 0
 loaded = true
 make_trees()
 game.onUpdate(function () {
@@ -2275,145 +2284,199 @@ game.onUpdateInterval(5000, function () {
 	
 })
 game.onUpdateInterval(2000, function () {
-    info.changeScoreBy(1)
+    info.changeScoreBy(10)
 })
 game.onUpdateInterval(500, function () {
     if (Math.percentChance(info.score())) {
-        if (Math.percentChance(info.score())) {
-            Zombie = sprites.create(img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . 2 2 2 2 2 . . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . 2 2 2 2 2 2 2 2 . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . 2 2 2 2 . . . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . . . 2 . 2 . . . . . . . 
-                . . . . . . 2 . 2 . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `, SpriteKind.Enemy)
-            animation.runImageAnimation(
-            Zombie,
-            [img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . 2 2 2 2 2 . . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . 2 2 2 2 2 2 2 . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . 2 2 2 2 2 . . . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . . . 2 . 2 . . . . . . . 
-                . . . . . . 2 . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `,img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . 2 2 2 2 2 . . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . . . 2 . . . . . 2 . . . . . 
-                . . 2 2 2 2 2 2 2 2 . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . 2 2 2 2 . . . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . . . . 2 . . . . . . . . 
-                . . . . . . 2 . 2 . . . . . . . 
-                . . . . . . . . 2 . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `],
-            100,
-            true
-            )
-            tiles.placeOnRandomTile(Zombie, assets.tile`myTile3`)
-            Zombie.follow(playerguy, 20)
-            statusbar = statusbars.create(15, 1, StatusBarKind.EnemyHealth)
-            statusbar.setColor(2, 12)
-            statusbar.attachToSprite(Zombie, -1, 0)
-            sprites.destroy(dead_body, effects.disintegrate, 500)
-        } else {
-            Zombie = sprites.create(img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . c c c c c . . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . c c c c c c c c . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . c c c c . . . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . . . c . c . . . . . . . 
-                . . . . . . c . c . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `, SpriteKind.Enemy)
-            animation.runImageAnimation(
-            Zombie,
-            [img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . c c c c c . . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . c c c c c c c . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . c c c c c . . . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . . . c . c . . . . . . . 
-                . . . . . . c . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `,img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . c c c c c . . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . . . c . . . . . c . . . . . 
-                . . c c c c c c c c . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . c c c c . . . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . . . . c . . . . . . . . 
-                . . . . . . c . c . . . . . . . 
-                . . . . . . . . c . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                `],
-            500,
-            true
-            )
-            tiles.placeOnRandomTile(Zombie, assets.tile`myTile3`)
-            Zombie.follow(playerguy, 10)
-            statusbar = statusbars.create(15, 1, StatusBarKind.EnemyHealth)
-            statusbar.setColor(2, 12)
-            statusbar.attachToSprite(Zombie, -1, 0)
-            sprites.destroy(dead_body, effects.disintegrate, 500)
+        if (is_exeeding_max_zombies(zombie_num, 100) == false) {
+            if (Math.percentChance(info.score())) {
+                Zombie = sprites.create(img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . 2 2 2 2 2 . . . . . . 
+                    . . . . 2 . . . . . 2 . . . . . 
+                    . . . . 2 . . . . . 2 . . . . . 
+                    . . . . 2 . . . . . 2 . . . . . 
+                    . . . . 2 . . . . . 2 . . . . . 
+                    . . 2 2 2 2 2 2 2 2 . . . . . . 
+                    . . . . . . . 2 . . . . . . . . 
+                    . . . . 2 2 2 2 . . . . . . . . 
+                    . . . . . . . 2 . . . . . . . . 
+                    . . . . . . . 2 . . . . . . . . 
+                    . . . . . . 2 . 2 . . . . . . . 
+                    . . . . . . 2 . 2 . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    `, SpriteKind.Enemy)
+                animation.runImageAnimation(
+                Zombie,
+                [img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 2 2 b . . . . . . . 
+                    . . . . 2 2 2 2 b b . . . . . . 
+                    . . . . 2 2 2 f 2 2 . . . . . . 
+                    . . . . . f 2 2 2 2 . . . . . . 
+                    . . . . . 2 2 2 2 . . . . . . . 
+                    . . . 2 2 2 e e e e . . . . . . 
+                    . . . 2 2 2 e 2 2 2 e . . . . . 
+                    . . . . . . e 2 2 2 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . . c c b b . . . . . 
+                    . . . . . . . c c b . . . . . . 
+                    . . . . . . . c f b . . . . . . 
+                    . . . . . . . f b . . . . . . . 
+                    `,img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 2 2 b . . . . . . . 
+                    . . . . 2 2 2 2 b b . . . . . . 
+                    . . . . 2 2 2 f 2 2 . . . . . . 
+                    . . . . . f 2 2 2 2 . . . . . . 
+                    . . . 2 2 2 2 2 2 e . . . . . . 
+                    . . . 2 2 2 e 2 2 2 e . . . . . 
+                    . . . . . . e 2 2 2 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . . c c b b . . . . . 
+                    . . . . . . . c c b . . . . . . 
+                    . . . . . . . f f b . . . . . . 
+                    `,img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 2 2 b . . . . . . . 
+                    . . . . 2 2 2 2 b b . . . . . . 
+                    . . . . 2 2 2 f 2 2 . . . . . . 
+                    . . . . . f 2 2 2 2 . . . . . . 
+                    . . . . . 2 2 2 2 . . . . . . . 
+                    . . . . . . e e e e . . . . . . 
+                    . . . 2 2 2 e e e e e . . . . . 
+                    . . . 2 2 2 e 2 2 2 e . . . . . 
+                    . . . . . . e 2 2 2 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . c b c c b . . . . . 
+                    . . . . . . c b c c b . . . . . 
+                    . . . . . . c b . c b . . . . . 
+                    . . . . . . f b . f b . . . . . 
+                    `],
+                100,
+                true
+                )
+                tiles.placeOnRandomTile(Zombie, assets.tile`myTile3`)
+                Zombie.follow(playerguy, 20)
+                statusbar = statusbars.create(15, 1, StatusBarKind.EnemyHealth)
+                statusbar.setColor(2, 12)
+                statusbar.attachToSprite(Zombie, -1, 0)
+                sprites.destroy(dead_body, effects.disintegrate, 500)
+            } else {
+                Zombie = sprites.create(img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . c c c c c . . . . . . 
+                    . . . . c . . . . . c . . . . . 
+                    . . . . c . . . . . c . . . . . 
+                    . . . . c . . . . . c . . . . . 
+                    . . . . c . . . . . c . . . . . 
+                    . . c c c c c c c c . . . . . . 
+                    . . . . . . . c . . . . . . . . 
+                    . . . . c c c c . . . . . . . . 
+                    . . . . . . . c . . . . . . . . 
+                    . . . . . . . c . . . . . . . . 
+                    . . . . . . c . c . . . . . . . 
+                    . . . . . . c . c . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    `, SpriteKind.Enemy)
+                animation.runImageAnimation(
+                Zombie,
+                [img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 7 7 b . . . . . . . 
+                    . . . . 7 7 7 7 b b . . . . . . 
+                    . . . . 7 7 7 f 7 7 . . . . . . 
+                    . . . . . f 7 7 7 7 . . . . . . 
+                    . . . . . 7 7 7 7 . . . . . . . 
+                    . . . . . . e e e e . . . . . . 
+                    . . . 7 7 7 e e e e e . . . . . 
+                    . . . 7 7 7 e 7 7 7 e . . . . . 
+                    . . . . . . e 7 7 7 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . c b c c b . . . . . 
+                    . . . . . . c b c c b . . . . . 
+                    . . . . . . c b . c b . . . . . 
+                    . . . . . . f b . f b . . . . . 
+                    `,img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 7 7 b . . . . . . . 
+                    . . . . 7 7 7 7 b b . . . . . . 
+                    . . . . 7 7 7 f 7 7 . . . . . . 
+                    . . . . . f 7 7 7 7 . . . . . . 
+                    . . . . . 7 7 7 7 . . . . . . . 
+                    . . . 7 7 7 e e e e . . . . . . 
+                    . . . 7 7 7 e 7 7 7 e . . . . . 
+                    . . . . . . e 7 7 7 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . . c c b b . . . . . 
+                    . . . . . . . c c b . . . . . . 
+                    . . . . . . . c f b . . . . . . 
+                    . . . . . . . f b . . . . . . . 
+                    `,img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 7 7 b . . . . . . . 
+                    . . . . 7 7 7 7 b b . . . . . . 
+                    . . . . 7 7 7 f 7 7 . . . . . . 
+                    . . . . . f 7 7 7 7 . . . . . . 
+                    . . . 7 7 7 7 7 7 e . . . . . . 
+                    . . . 7 7 7 e 7 7 7 e . . . . . 
+                    . . . . . . e 7 7 7 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . . c c b b . . . . . 
+                    . . . . . . . c c b . . . . . . 
+                    . . . . . . . f f b . . . . . . 
+                    `,img`
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . 7 7 b . . . . . . . 
+                    . . . . 7 7 7 7 b b . . . . . . 
+                    . . . . 7 7 7 f 7 7 . . . . . . 
+                    . . . . . f 7 7 7 7 . . . . . . 
+                    . . . . . 7 7 7 7 . . . . . . . 
+                    . . . . . . e e e e . . . . . . 
+                    . . . 7 7 7 e e e e e . . . . . 
+                    . . . 7 7 7 e 7 7 7 e . . . . . 
+                    . . . . . . e 7 7 7 e . . . . . 
+                    . . . . . . e e e e e . . . . . 
+                    . . . . . . c b c c b . . . . . 
+                    . . . . . . c b c c b . . . . . 
+                    . . . . . . c b . c b . . . . . 
+                    . . . . . . f b . f b . . . . . 
+                    `],
+                100,
+                true
+                )
+                tiles.placeOnRandomTile(Zombie, assets.tile`myTile3`)
+                Zombie.follow(playerguy, 10)
+                statusbar = statusbars.create(15, 1, StatusBarKind.EnemyHealth)
+                statusbar.setColor(2, 12)
+                statusbar.attachToSprite(Zombie, -1, 0)
+                sprites.destroy(dead_body, effects.disintegrate, 500)
+            }
+            zombie_num += 1
         }
     }
 })
 game.onUpdateInterval(100, function () {
-    if (loaded == false) {
+    while (loaded == false) {
         if (Equipped == 1) {
             statusbar2.value += 10
         } else if (Equipped == 2) {
