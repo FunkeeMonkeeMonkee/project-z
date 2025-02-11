@@ -2284,6 +2284,9 @@ game.onUpdate(function () {
     }
     bullet_speed()
 })
+game.onUpdate(function () {
+	
+})
 game.onUpdateInterval(5000, function () {
 	
 })
