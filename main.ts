@@ -411,7 +411,7 @@ function gunsmanage () {
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.ShotGun)
     BBShotgun.setPosition(1000, 1000)
-    Equipped = 2
+    Equipped = 1
     rocket_launcher = sprites.create(img`
         ........................
         ........................
@@ -2288,7 +2288,7 @@ game.onUpdateInterval(5000, function () {
 	
 })
 game.onUpdateInterval(2000, function () {
-    info.changeScoreBy(10)
+    info.changeScoreBy(1)
 })
 game.onUpdateInterval(400, function () {
     if (info.score() > 100) {
