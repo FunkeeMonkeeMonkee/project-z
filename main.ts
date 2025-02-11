@@ -2287,7 +2287,7 @@ game.onUpdateInterval(5000, function () {
 	
 })
 game.onUpdateInterval(2000, function () {
-    info.changeScoreBy(10)
+    info.changeScoreBy(1)
 })
 game.onUpdateInterval(400, function () {
     if (info.score() > 100) {
