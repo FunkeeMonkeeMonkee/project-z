@@ -357,6 +357,7 @@ function make_trees () {
         tiles.setTileAt(value, sprites.castle.tileDarkGrass3)
     }
 }
+// Releases the move_down function by setting movingDOWN to false when the down button is released.
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
     playerguy.setVelocity(0, 0)
     movingDOWN = false
@@ -1388,6 +1389,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     sprites.destroy(status.spriteAttachedTo())
 })
 info.onScore(100, function () {
+    bossMusic = true
     wendigo = sprites.create(img`
         ................................
         ................d...............
@@ -1731,6 +1733,9 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
     playerguy.setVelocity(0, 0)
     movingUP = false
 })
+function music2 () {
+    music.play(music.createSong(hex`00780004080200`), music.PlaybackMode.LoopingInBackground)
+}
 function chest2 () {
     for (let value2 of tiles.getTilesByType(sprites.dungeon.chestClosed)) {
         invis = sprites.create(img`
@@ -1787,6 +1792,7 @@ controller.A.onEvent(ControllerButtonEvent.Repeated, function () {
         }
     }
 })
+// Sets the loaded variable to true if the status bar that displays ammo is 100% full.
 statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.GTE, statusbars.ComparisonType.Percentage, 100, function (status) {
     loaded = true
 })
@@ -1803,6 +1809,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.boss, function (sprite, othe
 statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 0, function (status) {
     loaded = false
 })
+// The code checks to see if the max number of zombies has been met. If not, it returns a true, letting the zombies continue spawning. Else, return a false, stopping it spawning more.
 function is_exeeding_max_zombies (num_of_zombies: number, max_num_of_zombies: number) {
     if (num_of_zombies >= max_num_of_zombies) {
         return true
@@ -1810,6 +1817,7 @@ function is_exeeding_max_zombies (num_of_zombies: number, max_num_of_zombies: nu
         return false
     }
 }
+// The code checks to see if the moveingUp variable is set to true. Using this information, it moves the character accordingly.----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function move_forward () {
     thrustdir = transformSprites.getRotation(aim) - 90
     thrustDirRads = thrustdir * 3.1416 / 180
@@ -2145,6 +2153,7 @@ controller.left.onEvent(ControllerButtonEvent.Repeated, function () {
     rotation += -3
     move_forward()
 })
+// Array named list is the array of possible weapons the player can access.
 let Zombie: Sprite = null
 let thrustY = 0
 let thrustX = 0
@@ -2179,7 +2188,10 @@ let aim: Sprite = null
 let playerhealth: StatusBarSprite = null
 let statusbar2: StatusBarSprite = null
 let playerguy: Sprite = null
+let bossMusic = false
+bossMusic = false
 let ROTATION_CHANGE = 0
+// It's the background.
 tiles.setCurrentTilemap(tilemap`level2`)
 scene.setBackgroundColor(6)
 playerguy = sprites.create(img`
@@ -2530,6 +2542,11 @@ game.onUpdateInterval(400, function () {
         }
     }
 })
+forever(function () {
+    while (bossMusic == true) {
+        music2()
+    }
+})
 game.onUpdateInterval(500, function () {
     if (Math.percentChance(info.score())) {
         if (is_exeeding_max_zombies(zombie_num, 100) == false) {
@@ -2720,6 +2737,7 @@ game.onUpdateInterval(500, function () {
     }
 })
 game.onUpdateInterval(100, function () {
+    // Checks to see if the weapons are loaded every 10th of a second. If it is not loaded, it reloads it.
     if (loaded == false) {
         if (Equipped == 1) {
             statusbar2.value += 10
