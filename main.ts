@@ -306,7 +306,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.raygun, function (sprite, otherS
     make_aim()
     Equipped = 5
 })
-function make_trees() {
+function make_trees () {
     for (let value of tiles.getTilesByType(assets.tile`myTile0`)) {
         tree = sprites.create(img`
             ................86..................
@@ -356,12 +356,11 @@ function make_trees() {
         tiles.setTileAt(value, sprites.castle.tileDarkGrass3)
     }
 }
-// Releases the move_down function by setting movingDOWN to false when the down button is released.
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
     playerguy.setVelocity(0, 0)
     movingDOWN = false
 })
-function make_aim() {
+function make_aim () {
     aim.setPosition(playerguy.x, playerguy.y)
     aim.follow(playerguy, 100)
     transformSprites.changeRotation(aim, rotation)
@@ -372,7 +371,7 @@ controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
     rotation += 3
     move_forward()
 })
-function gunsmanage() {
+function gunsmanage () {
     BBpistol = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -553,7 +552,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Enemy, function (sprite, otherSpr
 sprites.onOverlap(SpriteKind.boss, SpriteKind.Player, function (sprite, otherSprite) {
     playerhealth.value += -10
 })
-function aim_left() {
+function aim_left () {
     if (Equipped == 1) {
         aim = sprites.create(img`
             .......................................................
@@ -878,8 +877,8 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
     sprites.destroy(sprite)
     sprites.destroy(otherSprite)
     animation.runImageAnimation(
-        explosion,
-        [img`
+    explosion,
+    [img`
         ........................
         ........................
         ........................
@@ -904,7 +903,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -929,7 +928,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -954,7 +953,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -979,7 +978,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1004,7 +1003,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1029,7 +1028,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1054,7 +1053,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1079,7 +1078,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1104,7 +1103,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1129,7 +1128,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1154,7 +1153,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1179,7 +1178,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1205,8 +1204,8 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.rocketlaunching, function (sprite
         ........................
         ........................
         `],
-        50,
-        false
+    50,
+    false
     )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.rocket, function (sprite, otherSprite) {
@@ -1275,8 +1274,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.rocket, function (sprite, otherS
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     zombie_num += -1
     animation.runImageAnimation(
-        status.spriteAttachedTo(),
-        [img`
+    status.spriteAttachedTo(),
+    [img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1293,7 +1292,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . c . c . . . . . . . 
         . . . . . . c . c . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1310,7 +1309,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . c . c . . . . . . . 
         . . . . . . c . c . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1327,7 +1326,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . . . . c . . . . . . . . 
         . . . . . . c . c . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1344,7 +1343,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . c c c c . . . . . . . . 
         . . . . . . c . c . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, img`
+        `,img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -1362,8 +1361,8 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
         . . . . c c c c c . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `],
-        50,
-        false
+    50,
+    false
     )
     pause(250)
     dead_body = sprites.create(img`
@@ -1388,7 +1387,6 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     sprites.destroy(status.spriteAttachedTo())
 })
 info.onScore(100, function () {
-    bossMusic = true
     wendigo = sprites.create(img`
         ................................
         ................d...............
@@ -1429,7 +1427,7 @@ info.onScore(100, function () {
     statusbar.setColor(2, 12)
     statusbar.attachToSprite(wendigo, -1, 0)
 })
-function aim_right() {
+function aim_right () {
     if (Equipped == 1) {
         aim = sprites.create(img`
             .......................................................
@@ -1732,10 +1730,7 @@ controller.up.onEvent(ControllerButtonEvent.Released, function () {
     playerguy.setVelocity(0, 0)
     movingUP = false
 })
-function music2() {
-    music.play(music.createSong(hex`00780004080200`), music.PlaybackMode.LoopingInBackground)
-}
-function chest2() {
+function chest2 () {
     for (let value2 of tiles.getTilesByType(sprites.dungeon.chestClosed)) {
         invis = sprites.create(img`
             . . . . . . . . . . . . . . . . 
@@ -1791,11 +1786,10 @@ controller.A.onEvent(ControllerButtonEvent.Repeated, function () {
         }
     }
 })
-// Sets the loaded variable to true if the status bar that displays ammo is 100% full.
 statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.GTE, statusbars.ComparisonType.Percentage, 100, function (status) {
     loaded = true
 })
-function bullet_speed() {
+function bullet_speed () {
     thrustdir2 = transformSprites.getRotation(aim) - 90
     thrustDirRads2 = thrustdir2 * 3.1416 / 180
     bulletthrustX = bulled_speed * Math.cos(thrustDirRads2)
@@ -1808,16 +1802,14 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.boss, function (sprite, othe
 statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 0, function (status) {
     loaded = false
 })
-// The code checks to see if the max number of zombies has been met. If not, it returns a true, letting the zombies continue spawning. Else, return a false, stopping it spawning more.
-function is_exeeding_max_zombies(num_of_zombies: number, max_num_of_zombies: number) {
+function is_exeeding_max_zombies (num_of_zombies: number, max_num_of_zombies: number) {
     if (num_of_zombies >= max_num_of_zombies) {
         return true
     } else {
         return false
     }
 }
-// The code checks to see if the moveingUp variable is set to true. Using this information, it moves the character accordingly.----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function move_forward() {
+function move_forward () {
     thrustdir = transformSprites.getRotation(aim) - 90
     thrustDirRads = thrustdir * 3.1416 / 180
     thrustX = THRUSTER_VELOCITY * Math.cos(thrustDirRads)
@@ -1862,8 +1854,8 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
     statusbars.getStatusBarAttachedTo(StatusBarKind.bossHealth, sprite).value += -25
     sprites.destroy(otherSprite)
     animation.runImageAnimation(
-        explosion,
-        [img`
+    explosion,
+    [img`
         ........................
         ........................
         ........................
@@ -1888,7 +1880,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1913,7 +1905,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1938,7 +1930,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1963,7 +1955,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -1988,7 +1980,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -2013,7 +2005,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -2038,7 +2030,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -2063,7 +2055,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -2088,7 +2080,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -2113,7 +2105,7 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         ........................
-        `, img`
+        `,img`
         ........................
         ........................
         ........................
@@ -2139,8 +2131,8 @@ sprites.onOverlap(SpriteKind.boss, SpriteKind.rocketlaunching, function (sprite,
         ........................
         ........................
         `],
-        50,
-        false
+    50,
+    false
     )
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
@@ -2152,7 +2144,6 @@ controller.left.onEvent(ControllerButtonEvent.Repeated, function () {
     rotation += -3
     move_forward()
 })
-// Array named list is the array of possible weapons the player can access.
 let Zombie: Sprite = null
 let thrustY = 0
 let thrustX = 0
@@ -2187,10 +2178,7 @@ let aim: Sprite = null
 let playerhealth: StatusBarSprite = null
 let statusbar2: StatusBarSprite = null
 let playerguy: Sprite = null
-let bossMusic = false
-bossMusic = false
 let ROTATION_CHANGE = 0
-// It's the background.
 tiles.setCurrentTilemap(tilemap`level2`)
 scene.setBackgroundColor(6)
 playerguy = sprites.create(img`
@@ -2267,11 +2255,11 @@ chest2()
 gunsmanage()
 scene.cameraFollowSprite(playerguy)
 let list = [
-    BBpistol,
-    BBShotgun,
-    rocket_launcher,
-    MINIGUN,
-    raygunn
+BBpistol,
+BBShotgun,
+rocket_launcher,
+MINIGUN,
+raygunn
 ]
 THRUSTER_VELOCITY = 30
 bulled_speed = 150
@@ -2296,17 +2284,17 @@ game.onUpdate(function () {
     bullet_speed()
 })
 game.onUpdateInterval(5000, function () {
-
+	
 })
 game.onUpdateInterval(2000, function () {
-    info.changeScoreBy(1)
+    info.changeScoreBy(10)
 })
 game.onUpdateInterval(400, function () {
     if (info.score() > 100) {
         if (wendigo.vx >= 1) {
             animation.runImageAnimation(
-                wendigo,
-                [img`
+            wendigo,
+            [img`
                 ................................
                 ...............d................
                 .............dd.................
@@ -2339,7 +2327,7 @@ game.onUpdateInterval(400, function () {
                 ..c...c.........................
                 ...c..c.........................
                 ...c...c........................
-                `, img`
+                `,img`
                 ................................
                 ...............d................
                 .............dd.................
@@ -2373,13 +2361,13 @@ game.onUpdateInterval(400, function () {
                 c.........c.....................
                 c..........c....................
                 `],
-                200,
-                true
+            200,
+            true
             )
         } else {
             animation.runImageAnimation(
-                wendigo,
-                [img`
+            wendigo,
+            [img`
                 ................................
                 ................d...............
                 .................dd.............
@@ -2412,7 +2400,7 @@ game.onUpdateInterval(400, function () {
                 .........................c...c..
                 .........................c..c...
                 ........................c...c...
-                `, img`
+                `,img`
                 ................................
                 ................d...............
                 .................dd.............
@@ -2446,15 +2434,10 @@ game.onUpdateInterval(400, function () {
                 .....................c.........c
                 ....................c..........c
                 `],
-                200,
-                true
+            200,
+            true
             )
         }
-    }
-})
-forever(function () {
-    while (bossMusic == true) {
-        music2()
     }
 })
 game.onUpdateInterval(500, function () {
@@ -2480,8 +2463,8 @@ game.onUpdateInterval(500, function () {
                     . . . . . . . . . . . . . . . . 
                     `, SpriteKind.Enemy)
                 animation.runImageAnimation(
-                    Zombie,
-                    [img`
+                Zombie,
+                [img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . 2 2 b . . . . . . . 
@@ -2498,7 +2481,7 @@ game.onUpdateInterval(500, function () {
                     . . . . . . . c c b . . . . . . 
                     . . . . . . . c f b . . . . . . 
                     . . . . . . . f b . . . . . . . 
-                    `, img`
+                    `,img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
@@ -2515,7 +2498,7 @@ game.onUpdateInterval(500, function () {
                     . . . . . . . c c b b . . . . . 
                     . . . . . . . c c b . . . . . . 
                     . . . . . . . f f b . . . . . . 
-                    `, img`
+                    `,img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . 2 2 b . . . . . . . 
@@ -2533,8 +2516,8 @@ game.onUpdateInterval(500, function () {
                     . . . . . . c b . c b . . . . . 
                     . . . . . . f b . f b . . . . . 
                     `],
-                    100,
-                    true
+                100,
+                true
                 )
                 tiles.placeOnRandomTile(Zombie, assets.tile`myTile3`)
                 Zombie.follow(playerguy, 20)
@@ -2562,8 +2545,8 @@ game.onUpdateInterval(500, function () {
                     . . . . . . . . . . . . . . . . 
                     `, SpriteKind.Enemy)
                 animation.runImageAnimation(
-                    Zombie,
-                    [img`
+                Zombie,
+                [img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . 7 7 b . . . . . . . 
@@ -2580,7 +2563,7 @@ game.onUpdateInterval(500, function () {
                     . . . . . . c b c c b . . . . . 
                     . . . . . . c b . c b . . . . . 
                     . . . . . . f b . f b . . . . . 
-                    `, img`
+                    `,img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . 7 7 b . . . . . . . 
@@ -2597,7 +2580,7 @@ game.onUpdateInterval(500, function () {
                     . . . . . . . c c b . . . . . . 
                     . . . . . . . c f b . . . . . . 
                     . . . . . . . f b . . . . . . . 
-                    `, img`
+                    `,img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
@@ -2614,7 +2597,7 @@ game.onUpdateInterval(500, function () {
                     . . . . . . . c c b b . . . . . 
                     . . . . . . . c c b . . . . . . 
                     . . . . . . . f f b . . . . . . 
-                    `, img`
+                    `,img`
                     . . . . . . . . . . . . . . . . 
                     . . . . . . . . . . . . . . . . 
                     . . . . . . 7 7 b . . . . . . . 
@@ -2632,8 +2615,8 @@ game.onUpdateInterval(500, function () {
                     . . . . . . c b . c b . . . . . 
                     . . . . . . f b . f b . . . . . 
                     `],
-                    100,
-                    true
+                100,
+                true
                 )
                 tiles.placeOnRandomTile(Zombie, assets.tile`myTile3`)
                 Zombie.follow(playerguy, 10)
@@ -2647,7 +2630,6 @@ game.onUpdateInterval(500, function () {
     }
 })
 game.onUpdateInterval(100, function () {
-    // Checks to see if the weapons are loaded every 10th of a second. If it is not loaded, it reloads it.
     if (loaded == false) {
         if (Equipped == 1) {
             statusbar2.value += 10
