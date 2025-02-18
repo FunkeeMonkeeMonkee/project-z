@@ -2629,9 +2629,6 @@ game.onUpdateInterval(500, function () {
         }
     }
 })
-game.onUpdateInterval(500, function () {
-    list[randint(1, list.length - 1)].setPosition(randint(invis.x - 25, invis.x + 25), randint(invis.y - 50, invis.x - 30))
-})
 game.onUpdateInterval(100, function () {
     if (loaded == false) {
         if (Equipped == 1) {
@@ -2648,5 +2645,5 @@ game.onUpdateInterval(100, function () {
     }
 })
 game.onUpdateInterval(20000, function () {
-	
+    list[randint(1, list.length - 1)].setPosition(randint(invis.x - 25, invis.x + 25), randint(invis.y - 50, invis.x - 30))
 })
