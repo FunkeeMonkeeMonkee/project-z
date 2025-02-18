@@ -552,6 +552,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Enemy, function (sprite, otherSpr
 sprites.onOverlap(SpriteKind.boss, SpriteKind.Player, function (sprite, otherSprite) {
     playerhealth.value += -10
 })
+// Checks for the different weapons to set a base model for each of them.
 function aim_left () {
     if (Equipped == 1) {
         aim = sprites.create(img`
@@ -1424,6 +1425,7 @@ info.onScore(100, function () {
     tiles.placeOnRandomTile(wendigo, assets.tile`myTile3`)
     wendigo.follow(playerguy, 40)
     statusbar = statusbars.create(30, 2, StatusBarKind.bossHealth)
+    // Changes color of the status bar, and then used to display wendigo's health
     statusbar.setColor(2, 12)
     statusbar.attachToSprite(wendigo, -1, 0)
 })
@@ -1802,6 +1804,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.boss, function (sprite, othe
 statusbars.onStatusReached(StatusBarKind.Energy, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 0, function (status) {
     loaded = false
 })
+// Returns the true or false variables base on if there is different numbers of zombies, changing whether or not more can spawn. Uses the previous variables to assist with this.
 function is_exeeding_max_zombies (num_of_zombies: number, max_num_of_zombies: number) {
     if (num_of_zombies >= max_num_of_zombies) {
         return true
@@ -2155,6 +2158,7 @@ let invis: Sprite = null
 let statusbar: StatusBarSprite = null
 let wendigo: Sprite = null
 let dead_body: Sprite = null
+let zombie_num = 0
 let explosion: Sprite = null
 let Melee = 0
 let rotation = 0
@@ -2179,6 +2183,7 @@ let playerhealth: StatusBarSprite = null
 let statusbar2: StatusBarSprite = null
 let playerguy: Sprite = null
 let ROTATION_CHANGE = 0
+// Tile map to create the world
 tiles.setCurrentTilemap(tilemap`level2`)
 scene.setBackgroundColor(6)
 playerguy = sprites.create(img`
@@ -2254,6 +2259,7 @@ make_aim()
 chest2()
 gunsmanage()
 scene.cameraFollowSprite(playerguy)
+// Array holds the value for each of the weapons
 let list = [
 BBpistol,
 BBShotgun,
@@ -2263,7 +2269,6 @@ raygunn
 ]
 THRUSTER_VELOCITY = 30
 bulled_speed = 150
-let zombie_num = 0
 loaded = true
 make_trees()
 game.onUpdate(function () {
